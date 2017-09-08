@@ -9,22 +9,22 @@ using Gyms.Models;
 
 namespace Gyms.Controllers
 {
-    public class ClientController : Controller
+    public class InstructorsController : Controller
     {
         private readonly GymsContext _context;
 
-        public ClientController(GymsContext context)
+        public InstructorsController(GymsContext context)
         {
             _context = context;
         }
 
-        // GET: Clients
+        // GET: Instructors
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Client.ToListAsync());
+            return View(await _context.Instructor.ToListAsync());
         }
 
-        // GET: Clients/Details/5
+        // GET: Instructors/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,39 +32,39 @@ namespace Gyms.Controllers
                 return NotFound();
             }
 
-            var client = await _context.Client
+            var instructor = await _context.Instructor
                 .SingleOrDefaultAsync(m => m.ID == id);
-            if (client == null)
+            if (instructor == null)
             {
                 return NotFound();
             }
 
-            return View(client);
+            return View(instructor);
         }
 
-        // GET: Clients/Create
+        // GET: Instructors/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Clients/Create
+        // POST: Instructors/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,DateOfBirth")] Client client)
+        public async Task<IActionResult> Create([Bind("ID,Name,DateOfBirth")] Instructor instructor)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(client);
+                _context.Add(instructor);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(client);
+            return View(instructor);
         }
 
-        // GET: Clients/Edit/5
+        // GET: Instructors/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -72,22 +72,22 @@ namespace Gyms.Controllers
                 return NotFound();
             }
 
-            var client = await _context.Client.SingleOrDefaultAsync(m => m.ID == id);
-            if (client == null)
+            var instructor = await _context.Instructor.SingleOrDefaultAsync(m => m.ID == id);
+            if (instructor == null)
             {
                 return NotFound();
             }
-            return View(client);
+            return View(instructor);
         }
 
-        // POST: Clients/Edit/5
+        // POST: Instructors/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,DateOfBirth")] Client client)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,DateOfBirth")] Instructor instructor)
         {
-            if (id != client.ID)
+            if (id != instructor.ID)
             {
                 return NotFound();
             }
@@ -96,12 +96,12 @@ namespace Gyms.Controllers
             {
                 try
                 {
-                    _context.Update(client);
+                    _context.Update(instructor);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ClientExists(client.ID))
+                    if (!InstructorExists(instructor.ID))
                     {
                         return NotFound();
                     }
@@ -112,10 +112,10 @@ namespace Gyms.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(client);
+            return View(instructor);
         }
 
-        // GET: Clients/Delete/5
+        // GET: Instructors/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -123,30 +123,30 @@ namespace Gyms.Controllers
                 return NotFound();
             }
 
-            var client = await _context.Client
+            var instructor = await _context.Instructor
                 .SingleOrDefaultAsync(m => m.ID == id);
-            if (client == null)
+            if (instructor == null)
             {
                 return NotFound();
             }
 
-            return View(client);
+            return View(instructor);
         }
 
-        // POST: Clients/Delete/5
+        // POST: Instructors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var client = await _context.Client.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Client.Remove(client);
+            var instructor = await _context.Instructor.SingleOrDefaultAsync(m => m.ID == id);
+            _context.Instructor.Remove(instructor);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ClientExists(int id)
+        private bool InstructorExists(int id)
         {
-            return _context.Client.Any(e => e.ID == id);
+            return _context.Instructor.Any(e => e.ID == id);
         }
     }
 }
