@@ -48,7 +48,7 @@ namespace Gyms
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Client}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/");
             });
         }
     }
