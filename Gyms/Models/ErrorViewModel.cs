@@ -1,5 +1,3 @@
-using System;
-
 namespace Gyms.Models
 {
     public class ErrorViewModel
