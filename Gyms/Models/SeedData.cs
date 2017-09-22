@@ -39,17 +39,20 @@ namespace Gyms.Models
                     context.AddRange(
                         new Instructor
                         {
-                            Name = "Test",
+                            FirstName = "Test",
+                            Surname = "Test",
                             DateOfBirth = DateTime.Parse("1980-01-01")
                         },
                         new Instructor
                         {
-                            Name = "Test 1",
+                            FirstName = "Test 1",
+                            Surname = "Test 1",
                             DateOfBirth = DateTime.Parse("1990-01-01")
                         },
                         new Instructor
                         {
-                            Name = "Test 2",
+                            FirstName = "Test 2",
+                            Surname = "Test 2",
                             DateOfBirth = DateTime.Parse("2000-01-01")
                         }
                     );

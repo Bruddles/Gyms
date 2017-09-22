@@ -18,7 +18,7 @@ namespace Gyms.Controllers
         // GET: Instructors
         public async Task<IActionResult> Index(string searchString)
         {
-            IQueryable<Instructor> instructors = _context.Instructor.Where(i => i.Name.Contains(searchString ?? ""));
+            IQueryable<Instructor> instructors = _context.Instructor.Where(i => i.FirstName.Contains(searchString ?? "") || i.Surname.Contains(searchString ?? ""));
             ViewBag.searchStringName = searchString;
 
             return View(await instructors.ToListAsync());
