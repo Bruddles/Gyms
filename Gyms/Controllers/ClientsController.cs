@@ -18,7 +18,7 @@ namespace Gyms.Controllers
         // GET: Clients
         public async Task<IActionResult> Index(string searchString)
         {
-            IQueryable<Client> clients = _context.Client.Where(c => c.Name.Contains(searchString ?? ""));
+            IQueryable<Client> clients = _context.Client.Where(c => c.FirstName.Contains(searchString ?? "") || c.Surname.Contains(searchString ?? ""));
             ViewBag.searchStringName = searchString;
 
             return View(await clients.ToListAsync());
@@ -53,7 +53,7 @@ namespace Gyms.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,DateOfBirth")] Client client)
+        public async Task<IActionResult> Create([Bind("ID,FirstName,Surname,DateOfBirth")] Client client)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace Gyms.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,DateOfBirth")] Client client)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,Surname,DateOfBirth")] Client client)
         {
             if (id != client.ID)
             {
