@@ -11,9 +11,10 @@ using System;
 namespace Gyms.Migrations
 {
     [DbContext(typeof(GymsContext))]
-    partial class GymsContextModelSnapshot : ModelSnapshot
+    [Migration("20170922160709_ClassAttendance")]
+    partial class ClassAttendance
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -47,16 +47,8 @@ namespace Gyms.Models
         /// <value>
         /// The classes.
         /// </value>
-        [NotMapped]
-        public List<Class> Classes { get; set; }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Client"/> class.
-        /// </summary>
-        public Client()
-        {
-            this.Classes = new List<Class>();
-        }
+        public List<ClassAttendance> ClassAttendance { get; set; }
+        
 
     }
 }

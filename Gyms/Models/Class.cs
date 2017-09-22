@@ -12,9 +12,7 @@ namespace Gyms.Models
 
         public int ID { get; set; }
         public Instructor Instructor { get; set; }
-
-        [NotMapped]
-        public List<Client> Clients { get; set; }
+        
 
         public DateTime Date { get; set; }
 
@@ -25,9 +23,7 @@ namespace Gyms.Models
             set => _durationTicks = value.TotalTicks;
         }
 
-        public Class()
-        {
-            this.Clients = new List<Client>();
-        }
+        public List<ClassAttendance> ClassAttendance { get; set; }
+        
     }
 }
