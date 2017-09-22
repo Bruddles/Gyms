@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace Gyms.Models
 {
@@ -20,6 +21,8 @@ namespace Gyms.Models
         /// The first name.
         /// </value>
         [DisplayName("First Name")]
+        [StringLength(100, MinimumLength = 1)]
+        [Required]
         public string FirstName { get; set; }
 
         /// <summary>
@@ -28,6 +31,8 @@ namespace Gyms.Models
         /// <value>
         /// The surname.
         /// </value>
+        [StringLength(100, MinimumLength = 1)]
+        [Required]
         public string Surname { get; set; }
 
         /// <summary>
@@ -37,6 +42,7 @@ namespace Gyms.Models
         /// The date of birth.
         /// </value>
         [DisplayName("Date of Birth")]
+        [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
     }
 }
