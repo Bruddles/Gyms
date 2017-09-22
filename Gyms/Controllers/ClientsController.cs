@@ -19,9 +19,12 @@ namespace Gyms.Controllers
         }
 
         // GET: Clients
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.Client.ToListAsync());
+            IQueryable<Client> clients = _context.Client.Where(c => c.Name.Contains(searchString ?? ""));
+            ViewBag.searchStringName = searchString;
+
+            return View(await clients.ToListAsync());
         }
 
         // GET: Clients/Details/5
