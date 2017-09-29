@@ -2,6 +2,7 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using NodaTime;
 
 namespace Gyms.Models
 {
@@ -57,6 +58,25 @@ namespace Gyms.Models
                         }
                     );
 
+                if (!context.Class.Any())
+                    context.AddRange(
+                        new Class
+                        {
+                            Name = "Class 1",
+                            Instructor = context.Instructor.FirstOrDefault(),
+                            Duration = Duration.FromHours(1),
+                            Date = new DateTime(2018, 1, 1, 12, 00, 00)
+                        });
+
+                if (!context.ClassAttendance.Any())
+                    context.AddRange(
+                        new ClassAttendance
+                        {
+                            Class = context.Class.FirstOrDefault(),
+                            Client = context.Client.FirstOrDefault()
+                        }
+                    );
+                
                 context.SaveChanges();
             }
         }
