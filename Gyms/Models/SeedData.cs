@@ -15,6 +15,7 @@ namespace Gyms.Models
                 serviceProvider.GetRequiredService<DbContextOptions<GymsContext>>()))
             {
                 if (!context.Client.Any())
+                {
                     context.Client.AddRange(
                         new Client
                         {
@@ -36,7 +37,11 @@ namespace Gyms.Models
                         }
                     );
 
+                    context.SaveChanges();
+                }
+
                 if (!context.Instructor.Any())
+                {
                     context.AddRange(
                         new Instructor
                         {
@@ -58,26 +63,35 @@ namespace Gyms.Models
                         }
                     );
 
+                    context.SaveChanges();
+                }
+
                 if (!context.Class.Any())
+                {
                     context.AddRange(
                         new Class
                         {
                             Name = "Class 1",
-                            Instructor = context.Instructor.FirstOrDefault(),
+                            InstructorID = context.Instructor.FirstOrDefault().ID,
                             Duration = Duration.FromHours(1),
                             Date = new DateTime(2018, 1, 1, 12, 00, 00)
                         });
 
+                    context.SaveChanges();
+                }
+
                 if (!context.ClassAttendance.Any())
+                {
                     context.AddRange(
                         new ClassAttendance
                         {
-                            Class = context.Class.FirstOrDefault(),
-                            Client = context.Client.FirstOrDefault()
+                            ClassId = context.Class.FirstOrDefault().ID,
+                            ClientId = context.Client.FirstOrDefault().ID
                         }
                     );
-                
-                context.SaveChanges();
+
+                    context.SaveChanges();
+                }
             }
         }
     }

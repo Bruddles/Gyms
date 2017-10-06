@@ -21,7 +21,7 @@
             @Html.DisplayNameFor(model => model.Instructor)
         </dt>
         <dd>
-            @Html.DisplayFor(model => $"{model.Instructor.FirstName} {model.Instructor.Surname}")
+            @Html.DisplayFor(model => model.Instructor.FullName)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Duration)

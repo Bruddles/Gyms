@@ -21,7 +21,7 @@ namespace Gyms.Controllers
         // GET: Classes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Class.ToListAsync());
+            return View(await _context.Class.Include(c => c.Instructor).ToListAsync());
         }
 
         // GET: Classes/Details/5
@@ -32,7 +32,7 @@ namespace Gyms.Controllers
                 return NotFound();
             }
 
-            var @class = await _context.Class
+            var @class = await _context.Class.Include(c => c.Instructor)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (@class == null)
             {
@@ -45,8 +45,11 @@ namespace Gyms.Controllers
         // GET: Classes/Create
         public IActionResult Create()
         {
+            GetInstructorSelectList();
             return View();
         }
+
+        
 
         // POST: Classes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -72,11 +75,14 @@ namespace Gyms.Controllers
                 return NotFound();
             }
 
-            var @class = await _context.Class.SingleOrDefaultAsync(m => m.ID == id);
+            var @class = await _context.Class.Include(c => c.Instructor).SingleOrDefaultAsync(m => m.ID == id);
             if (@class == null)
             {
                 return NotFound();
             }
+            
+            GetInstructorSelectList(@class.Instructor);
+
             return View(@class);
         }
 
@@ -123,7 +129,7 @@ namespace Gyms.Controllers
                 return NotFound();
             }
 
-            var @class = await _context.Class
+            var @class = await _context.Class.Include(c => c.Instructor)
                 .SingleOrDefaultAsync(m => m.ID == id);
             if (@class == null)
             {
@@ -147,6 +153,15 @@ namespace Gyms.Controllers
         private bool ClassExists(int id)
         {
             return _context.Class.Any(e => e.ID == id);
+        }
+
+        private void GetInstructorSelectList(Instructor selectedInstructor = null)
+        {
+            ViewBag.InstructorID = new SelectList(
+                _context.Instructor.AsNoTracking().OrderBy(i => i.Surname).Select(i => i).ToArray(),
+                "ID",
+                "FullName",
+                selectedInstructor);
         }
     }
 }

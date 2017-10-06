@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Gyms.Models
 {
@@ -34,6 +35,9 @@ namespace Gyms.Models
         [StringLength(100, MinimumLength = 1)]
         [Required]
         public string Surname { get; set; }
+
+        [NotMapped]
+        public string FullName => $"{Surname}, {FirstName}";
 
         /// <summary>
         /// Gets or sets the date of birth.
