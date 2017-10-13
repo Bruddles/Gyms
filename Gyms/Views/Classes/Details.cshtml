@@ -37,6 +37,39 @@
     </dl>
 </div>
 <div>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassAttendance.First().Client.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassAttendance.First().Client.Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassAttendance.First().Client.DateOfBirth)
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.ClassAttendance) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Client.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Client.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Client.DateOfBirth)
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+<div>
     <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

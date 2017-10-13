@@ -33,7 +33,10 @@ namespace Gyms.Controllers
             }
 
             var @class = await _context.Class.Include(c => c.Instructor)
-                .SingleOrDefaultAsync(m => m.ID == id);
+                .Include(c => c.ClassAttendance)
+                .ThenInclude(ca => ca.Client)
+                .SingleOrDefaultAsync(m => m.ID == id)
+                .ConfigureAwait(false);
             if (@class == null)
             {
                 return NotFound();
