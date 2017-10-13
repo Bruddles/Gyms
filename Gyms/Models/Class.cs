@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using NodaTime;
 
@@ -9,7 +10,7 @@ namespace Gyms.Models
     public class Class
     {
         [Column("Duration")]
-        private double _durationTicks;
+        private long _durationTicks;
 
         public int ID { get; set; }
 
@@ -19,11 +20,11 @@ namespace Gyms.Models
         
         public DateTime Date { get; set; }
 
-        [NotMapped]
-        public Duration Duration
+        [DataType(DataType.Duration)]
+        public TimeSpan Duration
         {
-            get => Duration.FromTicks(_durationTicks);
-            set => _durationTicks = value.TotalTicks;
+            get => TimeSpan.FromTicks(_durationTicks);
+            set => _durationTicks = value.Ticks;
         }
 
         public string Name { get; set; }

@@ -73,7 +73,7 @@ namespace Gyms.Models
                         {
                             Name = "Class 1",
                             InstructorID = context.Instructor.FirstOrDefault().ID,
-                            Duration = Duration.FromHours(1),
+                            Duration = TimeSpan.FromHours(1),
                             Date = new DateTime(2018, 1, 1, 12, 00, 00)
                         });
 
