@@ -166,5 +166,18 @@ namespace Gyms.Controllers
                 "FullName",
                 selectedInstructor);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveClient(int ID, int clientID)
+        {
+            var classAttendance = await _context.ClassAttendance
+                .SingleOrDefaultAsync(ca => ca.Class.ID == ID && ca.Client.ID == clientID).ConfigureAwait(false);
+            
+            _context.ClassAttendance.Remove(classAttendance);
+            await _context.SaveChangesAsync().ConfigureAwait(false);
+            
+            return RedirectToAction(nameof(Details), new {ID});
+        }
     }
 }

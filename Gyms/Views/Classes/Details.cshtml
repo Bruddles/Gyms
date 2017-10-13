@@ -64,6 +64,13 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Client.DateOfBirth)
                 </td>
+                <td>
+                    <form asp-action="RemoveClient">
+                        <input type="hidden" asp-for="@Model.ID"/>
+                        @Html.Hidden("clientID", item.Client.ID)
+                        <input type="submit" value="Remove Client" class="btn btn-default"/>
+                    </form>
+                </td>
             </tr>
         }
         </tbody>
