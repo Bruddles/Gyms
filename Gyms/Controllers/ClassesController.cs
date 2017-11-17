@@ -25,24 +25,34 @@ namespace Gyms.Controllers
         }
 
         // GET: Classes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? id, string clientSearchString)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var @class = await _context.Class.Include(c => c.Instructor)
+            Class @class = await _context.Class.Include(c => c.Instructor)
                 .Include(c => c.ClassAttendance)
                 .ThenInclude(ca => ca.Client)
                 .SingleOrDefaultAsync(m => m.ID == id)
                 .ConfigureAwait(false);
+
             if (@class == null)
             {
                 return NotFound();
             }
 
-            return View(@class);
+            List<Client> clients = await _context.Client
+                .Where(c => (c.FirstName.Contains(clientSearchString ?? "") 
+                        || c.Surname.Contains(clientSearchString ?? "")) 
+                    && !@class.ClassAttendance.Any(ca => ca.ClassId == id && ca.ClientId == c.ID))
+                .ToListAsync().ConfigureAwait(false);
+
+
+            ViewBag.clientSearchStringName = clientSearchString;
+
+            return View(new ClassViewModel { Class = @class, Clients = clients });
         }
 
         // GET: Classes/Create
@@ -165,6 +175,23 @@ namespace Gyms.Controllers
                 "ID",
                 "FullName",
                 selectedInstructor);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddClient(int ID, int clientID)
+        {
+            ClassAttendance classAttendance = new ClassAttendance
+            {
+                Class = await _context.Class.SingleAsync(c => c.ID == ID).ConfigureAwait(false),
+                Client = await _context.Client.SingleAsync(c => c.ID == clientID).ConfigureAwait(false)
+            };
+
+            _context.ClassAttendance.Add(classAttendance);
+            await _context.SaveChangesAsync().ConfigureAwait(false);
+
+            return RedirectToAction(nameof(Details), new { ID });
         }
 
         [HttpPost]
