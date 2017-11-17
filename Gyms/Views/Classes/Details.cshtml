@@ -41,6 +41,7 @@
     <hr />
     <form asp-controller="Classes" asp-action="Details" asp-route-id="Model.Class.ID" method="get">
         <div class="input-group">
+            @Html.Hidden("ID", Model.Class.ID)
             <span class="input-group-addon">Name: </span>
             <input type="text" class="form-control" name="ClientSearchString" value="@ViewBag.clientSearchStringName"/>
             <span class="input-group-btn">
