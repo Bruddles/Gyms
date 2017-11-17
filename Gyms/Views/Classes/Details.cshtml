@@ -40,10 +40,13 @@
     <h4>Class Signup</h4>
     <hr />
     <form asp-controller="Classes" asp-action="Details" asp-route-id="Model.Class.ID" method="get">
-        <p>
-            Name: <input type="text" name="ClientSearchString" value="@ViewBag.clientSearchStringName"/>
-            <input type="submit" value="Filter"/>
-        </p>
+        <div class="input-group">
+            <span class="input-group-addon">Name: </span>
+            <input type="text" class="form-control" name="ClientSearchString" value="@ViewBag.clientSearchStringName"/>
+            <span class="input-group-btn">
+                <input type="submit" value="Filter" class="btn btn-default"/>
+            </span>
+        </div>
     </form>
     <table class="table">
         <thead>
