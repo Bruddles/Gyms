@@ -31,6 +31,44 @@
     </dl>
 </div>
 <div>
+    <h4>Class Attendance</h4>
+    <hr />
+    <table class="table">
+        <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassAttendance.First().Class.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassAttendance.First().Class.Instructor.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassAttendance.First().Class.Date)
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.ClassAttendance.Where(ca => ca.Client.ID == Model.ID)) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Class.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Class.Instructor.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Class.Date)
+                </td>
+                <td>
+                    <a asp-controller="Classes" asp-action="Details" asp-route-id="@item.Class.ID">Details</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+<div>
     <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

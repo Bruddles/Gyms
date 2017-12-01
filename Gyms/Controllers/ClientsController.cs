@@ -32,8 +32,12 @@ namespace Gyms.Controllers
                 return NotFound();
             }
 
-            var client = await _context.Client
-                .SingleOrDefaultAsync(m => m.ID == id);
+            var client = await _context.Client.Include(c => c.ClassAttendance)
+                .ThenInclude(ca => ca.Class)
+                .ThenInclude(c => c.Instructor)
+                .SingleOrDefaultAsync(m => m.ID == id)
+                .ConfigureAwait(false);
+
             if (client == null)
             {
                 return NotFound();
